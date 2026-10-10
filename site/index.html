@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#081529">
+<title>بصمتك للاستثمار العقاري — فرع محافظة حماة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#081529;
+    --ink-2:#0F2342;
+    --ink-3:#18325E;
+    --brass:#C9A25C;
+    --brass-hi:#EBCB8A;
+    --brass-lo:#8E6D35;
+    --ivory:#F3ECDD;
+    --mist:#A9B6CC;
+    --line:rgba(201,162,92,.30);
+    --hair:rgba(243,236,221,.10);
+    --display:'Readex Pro','Noto Kufi Arabic','Tajawal','IBM Plex Sans Arabic',system-ui,sans-serif;
+    --body:'IBM Plex Sans Arabic','Tajawal',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --arch:999px 999px 14px 14px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{height:100%; margin:0; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
+  img,video{-webkit-user-drag:none; user-select:none;}
+  img{pointer-events:none;}
+  body{
+    font-family:var(--body); color:var(--ivory); background:var(--ink);
+    overscroll-behavior:none; -webkit-font-smoothing:antialiased;
+  }
+  button{font-family:inherit; color:inherit; cursor:pointer;}
+  a{color:inherit; text-decoration:none;}
+  :focus-visible{outline:2px solid var(--brass-hi); outline-offset:3px;}
+
+  .page{position:fixed; inset:0; display:none; flex-direction:column; background:var(--ink);}
+  .page.active{display:flex; animation:pg .32s ease both;}
+  @keyframes pg{from{opacity:0}to{opacity:1}}
+
+  /* ---------- ridges (the fingerprint motif) ---------- */
+  .ridge svg{display:block; width:100%; height:100%;}
+  .draw path{stroke-dasharray:1; stroke-dashoffset:1; animation:trace 1.5s cubic-bezier(.25,.7,.25,1) forwards; animation-delay:calc(var(--i) * 26ms + 150ms);}
+  @keyframes trace{to{stroke-dashoffset:0}}
+
+  /* ---------- top bar ---------- */
+  .bar{
+    flex:none; height:68px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 16px; gap:12px; position:relative; z-index:20;
+  }
+  .brand{display:flex; align-items:center; gap:11px; min-width:0;}
+  .brand .logoMark{height:38px; width:auto; flex:none;}
+  .brand-text{display:flex; flex-direction:column; line-height:1.25; min-width:0;}
+  .brand-text b{font-family:var(--display); font-weight:600; font-size:15.5px; color:var(--ivory);}
+  .brand-text span{font-size:11.5px; color:var(--brass); font-weight:500;}
+  .bar-title{font-family:var(--display); font-weight:600; font-size:17px; flex:1; text-align:center;}
+  .ibtn{
+    width:44px; height:44px; flex:none; border-radius:50%; display:grid; place-items:center;
+    border:1px solid var(--line); background:rgba(201,162,92,.07); color:var(--brass-hi);
+    transition:background .15s, transform .15s;
+  }
+  .ibtn:active{background:rgba(201,162,92,.22); transform:scale(.94);}
+  .ibtn svg{width:19px; height:19px;}
+
+  .body{flex:1; overflow-y:auto; padding:6px 18px 28px; position:relative;}
+  .body::-webkit-scrollbar{display:none}
+  .head h2{font-family:var(--display); font-weight:600; font-size:29px; line-height:1.35; margin:6px 0 4px; letter-spacing:0;}
+  .head p{margin:0 0 20px; color:var(--mist); font-size:14.5px; line-height:1.7;}
+
+  /* ---------- footer contact ---------- */
+  .foot{
+    flex:none; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:10px 18px calc(10px + env(safe-area-inset-bottom)); border-top:1px solid var(--line);
+    background:rgba(8,21,41,.94); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); position:relative; z-index:20;
+  }
+  .foot .label{font-size:14px; font-weight:600; color:var(--ivory); white-space:nowrap;}
+  .foot .links{display:flex; gap:10px;}
+  .cbtn{
+    width:42px; height:42px; border-radius:50%; display:grid; place-items:center;
+    border:1px solid var(--line); background:rgba(201,162,92,.06); transition:background .15s;
+  }
+  .cbtn:active,.cbtn:hover{background:rgba(201,162,92,.2);}
+  .cbtn svg{width:20px; height:20px;}
+
+  /* ================= SPLASH ================= */
+  #pageSplash{background:radial-gradient(120% 62% at 50% 30%, #17335F 0%, var(--ink) 66%); overflow:hidden;}
+  .ridge-bg{position:absolute; inset:0; color:var(--brass); opacity:.46; transition:opacity .6s ease; pointer-events:none;}
+  #pageSplash.holding .ridge-bg{opacity:1;}
+  #pageSplash.holding .ridge-bg path{stroke:var(--brass-hi);}
+  .splash-scroll{
+    position:relative; z-index:2; flex:1; overflow-y:auto; display:flex; flex-direction:column; align-items:center;
+    padding:max(18px,env(safe-area-inset-top)) 28px 12px; text-align:center;
+  }
+  .splash-scroll::-webkit-scrollbar{display:none}
+  .splash-scroll > *{flex:none;}
+  .splash-scroll > .splash-logo{margin-top:auto;}
+  .splash-scroll > .splash-more{margin-bottom:auto;}
+  .splash-logo{height:112px; width:auto; margin-bottom:14px;}
+  .scan{
+    position:relative; width:132px; height:132px; border-radius:50%; border:0; padding:0; touch-action:none;
+    background:radial-gradient(circle at 50% 38%, #1B3A6B, var(--ink-2) 70%);
+    box-shadow:0 0 0 1px var(--line), 0 18px 44px rgba(0,0,0,.5), inset 0 0 28px rgba(201,162,92,.12);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  #pageSplash.holding .scan{transform:scale(1.06); box-shadow:0 0 0 1px var(--brass), 0 0 60px rgba(235,203,138,.38), inset 0 0 34px rgba(235,203,138,.25);}
+  .scan-prog{position:absolute; inset:-2px; width:calc(100% + 4px); height:calc(100% + 4px);}
+  .scan-prog circle{fill:none; stroke-width:2.4;}
+  .scan-prog .trk{stroke:rgba(201,162,92,.22);}
+  .scan-prog .arc{stroke:var(--brass-hi); stroke-linecap:round; stroke-dasharray:415; stroke-dashoffset:415;}
+  .scan-print{position:absolute; inset:14px; border-radius:50%; overflow:hidden; color:var(--brass-hi); opacity:.9;}
+  #pageSplash.holding .scan-print{color:#fff3d6;}
+  .scan-hint{margin:22px 0 20px; font-size:15px; font-weight:700; color:var(--brass-hi); min-height:22px; text-shadow:0 1px 6px rgba(8,21,41,.9);}
+  .splash-title{
+    font-family:var(--display); font-weight:700; font-size:33px; line-height:1.5; margin:0 0 14px; text-wrap:balance; color:var(--brass-hi);
+    background:linear-gradient(180deg,#FFE9B8 0%,var(--brass-hi) 50%,var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 2px 8px rgba(8,21,41,.9)) drop-shadow(0 0 2px rgba(8,21,41,.8));
+  }
+  .splash-text{
+    max-width:29em; margin:0 0 20px; color:#fff8e8; font-weight:600; font-size:16.5px; line-height:1.95; text-shadow:0 1px 8px rgba(8,21,41,.95), 0 0 3px rgba(8,21,41,.85);
+  }
+  .splash-text p{margin:0 0 .85em;}
+  .splash-text p:last-child{margin-bottom:0;}
+  .splash-btn{
+    height:50px; padding:0 30px; border-radius:999px; border:1px solid var(--brass); background:transparent;
+    color:var(--brass-hi); font-weight:700; font-size:16.5px; display:flex; align-items:center; gap:9px;
+    transition:background .15s;
+  }
+  .splash-btn:active{background:rgba(201,162,92,.2);}
+  .splash-btn svg{width:18px; height:18px;}
+  .splash-more{display:flex; justify-content:center; padding-bottom:6px;}
+  #pageSplash .foot{background:transparent; border-top:1px solid rgba(201,162,92,.18); backdrop-filter:none;}
+
+
+  /* ---------- active visitors (top bar) ---------- */
+  .live{display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; flex:none; min-width:62px; padding:5px 10px; border-radius:14px;
+    border:1px solid var(--line); background:rgba(201,162,92,.07); line-height:1.2;}
+  .live-row{display:flex; align-items:center; gap:6px;}
+  .live-dot{position:relative; width:7px; height:7px; border-radius:50%; background:#3DDC84; flex:none;}
+  .live-dot::after{content:""; position:absolute; inset:0; border-radius:50%; background:#3DDC84; animation:livePulse 1.8s ease-out infinite;}
+  @keyframes livePulse{0%{transform:scale(1); opacity:.7}100%{transform:scale(3); opacity:0}}
+  .live-num{font-family:var(--display); font-weight:700; font-size:14px; color:var(--brass-hi); font-variant-numeric:tabular-nums; transition:opacity .25s ease;}
+  .live-num.swap{opacity:.25;}
+  .live-lbl{font-size:9.5px; font-weight:500; color:var(--mist); white-space:nowrap;}
+  .bar{border-bottom:1px solid rgba(201,162,92,.55);}
+  .bar .brand-text b{line-height:1.5;}
+  @media (max-width:360px){.bar .brand-text b{font-size:14px;} .bar .brand-text span{font-size:11px;}}
+  .splash-live{position:absolute; top:max(12px,env(safe-area-inset-top)); left:14px; z-index:5;}
+
+  /* wave on unlock */
+  .ripple{
+    position:fixed; z-index:200; width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%;
+    background:var(--ink-2); box-shadow:0 0 0 .3px var(--brass-hi), 0 0 0 .9px rgba(201,162,92,.35);
+    transform:scale(0); transition:transform .56s cubic-bezier(.5,0,.7,.4), opacity .5s ease; pointer-events:none;
+  }
+  .ripple.go{transform:scale(70);}
+  .ripple.out{opacity:0;}
+
+  /* ================= HUB (type page) ================= */
+  .hub{display:grid; gap:12px; margin-bottom:8px;}
+  .hub-main,.hub-rent{
+    position:relative; overflow:hidden; width:100%; text-align:right; border-radius:28px 28px 28px 8px;
+    border:1px solid var(--line); color:var(--ivory); padding:20px; display:flex; flex-direction:column; justify-content:flex-end;
+  }
+  .hub-main{min-height:196px; background:linear-gradient(150deg,#1A3868 0%, #0F2446 58%, #0B1C38 100%);}
+  .hub-rent{min-height:178px; background:linear-gradient(150deg,#13294D,#0C1E3B); border-radius:28px 8px 28px 28px;}
+  .hub-main .ridge,.hub-rent .ridge{position:absolute; left:-46px; top:-34px; width:290px; height:290px; color:var(--brass); opacity:.8; pointer-events:none;}
+  .hub-rent .ridge{width:220px; height:220px; top:-50px; opacity:.5;}
+  .hub-main .ridge,.hub-rent .ridge,.empty .ridge{-webkit-mask-image:radial-gradient(circle at 42% 46%,#000 18%,transparent 68%); mask-image:radial-gradient(circle at 42% 46%,#000 18%,transparent 68%);}
+  .hub-ic{
+    position:absolute; right:18px; top:18px; width:50px; height:50px; border-radius:50%; display:grid; place-items:center;
+    background:rgba(8,21,41,.6); border:1px solid var(--brass); color:var(--brass-hi);
+  }
+  .hub-ic svg{width:26px; height:26px;}
+  .hub-main b,.hub-rent b{font-family:var(--display); font-weight:700; font-size:30px; line-height:1.3; position:relative;}
+  .hub-main span.d,.hub-rent span.d{font-size:14px; color:rgba(243,236,221,.82); position:relative; margin-top:2px;}
+  .hub-main small{font-size:12.5px; color:var(--brass-hi); margin-top:10px; font-weight:500; position:relative;}
+  .soon{position:absolute; left:16px; bottom:16px; font-size:12px; font-weight:600; color:var(--brass-hi); border:1px solid var(--brass); border-radius:999px; padding:3px 12px; background:rgba(8,21,41,.5);}
+  .svc-list{margin-top:10px;}
+  .svc{
+    display:flex; align-items:center; gap:14px; padding:15px 2px; border-bottom:1px solid var(--hair); width:100%; text-align:right;
+    background:none; border-left:0; border-right:0; border-top:0; transition:background .15s;
+  }
+  .svc:last-child{border-bottom:0;}
+  .svc:active{background:rgba(201,162,92,.07);}
+  .svc-ic{width:46px; height:46px; flex:none; border-radius:50%; border:1px solid var(--line); display:grid; place-items:center; color:var(--brass-hi); background:rgba(201,162,92,.06);}
+  .svc-ic svg{width:23px; height:23px;}
+  .svc-t{flex:1; min-width:0; display:flex; flex-direction:column; gap:1px;}
+  .svc-t b{font-size:16.5px; font-weight:600;}
+  .svc-t span{font-size:13px; color:var(--mist);}
+  .svc > svg{width:18px; height:18px; color:var(--brass); flex:none;}
+
+  /* ================= AREAS ================= */
+  .area{
+    display:flex; align-items:center; gap:16px; width:100%; text-align:right; padding:14px 2px; background:none;
+    border:0; border-bottom:1px solid var(--hair); position:relative;
+  }
+  .area:active{background:rgba(201,162,92,.07);}
+  .arch{position:relative; width:78px; height:98px; flex:none; border-radius:var(--arch);}
+  .arch::after{content:""; position:absolute; inset:-5px; border:1px solid var(--line); border-radius:999px 999px 18px 18px; pointer-events:none;}
+  .arch img,.arch .ph{width:100%; height:100%; border-radius:var(--arch); object-fit:cover; display:block;}
+  .area-t{flex:1; min-width:0;}
+  .area-t b{font-family:var(--display); font-weight:600; font-size:20px; line-height:1.5; display:block;}
+  .area-n{display:flex; flex-direction:column; align-items:center; line-height:1; min-width:48px;}
+  .area-n em{font-family:var(--display); font-style:normal; font-weight:700; font-size:34px; color:var(--brass-hi);}
+  .area-n span{font-size:12px; color:var(--mist); margin-top:4px;}
+  .ph{position:relative; overflow:hidden; background:linear-gradient(160deg,#1A3868,#0C1E3B); display:grid; place-items:center; color:var(--brass);}
+  .ph .ridge{position:absolute; inset:0; opacity:.7;}
+  .ph .phlogo{position:relative; width:46%; max-width:140px; height:auto; object-fit:contain; border-radius:0;}
+
+  /* ================= LISTINGS ================= */
+  .listing{
+    position:relative; display:block; width:100%; height:236px; padding:0; border:0; border-radius:26px 26px 26px 8px; overflow:hidden;
+    margin-bottom:14px; text-align:right; background:var(--ink-2); box-shadow:0 0 0 1px var(--line);
+  }
+  .listing > img,.listing > .ph{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:0; transition:transform .5s ease;}
+  .listing:active > img{transform:scale(1.03);}
+  .listing::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(6,14,29,.97) 6%, rgba(6,14,29,.78) 40%, rgba(6,14,29,.18) 68%, rgba(6,14,29,0) 82%);}
+  .listing-in{position:absolute; inset:auto 0 0 0; z-index:2; padding:16px 18px 16px;}
+  .listing-in b{font-family:var(--display); font-weight:700; font-size:24px; line-height:1.35; display:block; color:var(--brass-hi); text-shadow:0 2px 10px rgba(0,0,0,.65), 0 0 2px rgba(0,0,0,.5);}
+  .listing-in .loc{font-size:13.5px; color:rgba(243,236,221,.86); margin:2px 0 10px; display:flex; gap:6px; align-items:flex-start; line-height:1.6;}
+  .listing-in .loc svg{width:15px; height:15px; margin-top:4px; flex:none; color:var(--brass-hi);}
+  .chips{display:flex; flex-wrap:wrap; gap:7px;}
+  .chip{display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 12px; border-radius:999px; font-size:12.5px; font-weight:500; background:rgba(8,21,41,.62); border:1px solid rgba(243,236,221,.2); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);}
+  .chip svg{width:13px; height:13px; color:var(--brass-hi);}
+  .chip.sold{border-color:#4FD6A0; color:#7CF0C2;}
+  .listing.is-sold > img{filter:grayscale(.55) brightness(.8);}
+  .ribbon{
+    position:absolute; z-index:3; top:16px; left:-38px; width:150px; text-align:center; padding:5px 0; transform:rotate(-38deg);
+    background:#2BBF86; color:#04251a; font-weight:800; font-size:14px; box-shadow:0 4px 14px rgba(0,0,0,.4);
+  }
+  .empty{margin:54px 0 0; text-align:center; color:var(--mist); font-size:15px; line-height:1.9; position:relative;}
+  .empty .ridge{width:210px; height:210px; margin:0 auto 6px; color:var(--brass); opacity:.7;}
+
+  /* ================= PROPERTY ================= */
+  #pageProperty{background:#050d1b;}
+  #viewer{position:absolute; inset:0; display:flex; flex-direction:column;}
+  #stage{position:relative; flex:1; overflow:hidden; background:#02070f; touch-action:pan-y;}
+  #stageBg{position:absolute; left:-30px; top:-30px; width:calc(100% + 60px); height:calc(100% + 60px); object-fit:cover; filter:blur(28px) brightness(.7); display:none; transition:opacity .35s ease;}
+  #stageImg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:opacity .35s ease;}
+  #hotspotLayer{position:absolute; inset:0;}
+  .hotspot{position:absolute; transform:translate(-50%,-50%); width:42px; height:42px; border-radius:50%; background:rgba(8,21,41,.55); border:1.5px solid var(--brass-hi); display:grid; place-items:center; padding:0; backdrop-filter:blur(2px);}
+  .hotspot-ring{position:absolute; inset:-8px; border-radius:50%; border:1.5px solid rgba(201,162,92,.55); animation:pulse 2.2s ease-out infinite;}
+  @keyframes pulse{0%{transform:scale(.7);opacity:.9}75%{transform:scale(1.35);opacity:0}100%{opacity:0}}
+  .hotspot-tip{position:absolute; bottom:calc(100% + 8px); right:50%; transform:translateX(50%); background:var(--ink); color:var(--ivory); font-size:12px; padding:5px 10px; border-radius:8px; white-space:nowrap; border:1px solid var(--line); opacity:0; pointer-events:none; transition:opacity .15s;}
+  .hotspot:active .hotspot-tip{opacity:1;}
+
+  .v-top{position:absolute; top:0; left:0; right:0; z-index:12; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:max(12px,env(safe-area-inset-top)) 14px 34px; background:linear-gradient(to bottom, rgba(5,13,27,.88), rgba(5,13,27,0));}
+  .v-top .ibtn{background:rgba(8,21,41,.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);}
+  .v-title{flex:1; min-width:0; text-align:center; line-height:1.3; text-shadow:0 1px 8px rgba(0,0,0,.7);}
+  .v-title b{font-family:var(--display); font-weight:600; font-size:17px; display:block;}
+  .v-title span{font-size:12px; color:var(--brass-hi);}
+  .v-dock{
+    position:absolute; z-index:12; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom)); display:flex; align-items:center; gap:10px;
+    padding:10px; border-radius:999px; background:rgba(8,21,41,.66); border:1px solid var(--line);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%); box-shadow:0 12px 36px rgba(0,0,0,.45);
+  }
+  .nbtn{width:52px; height:52px; flex:none; border-radius:50%; display:grid; place-items:center; border:1px solid var(--line); background:rgba(243,236,221,.07); color:var(--ivory); transition:transform .15s;}
+  .nbtn:active{transform:scale(.92);}
+  .nbtn.next{background:linear-gradient(140deg,var(--brass-hi),var(--brass)); color:var(--ink); border-color:transparent;}
+  .nbtn svg{width:22px; height:22px;}
+  .v-mid{flex:1; min-width:0; text-align:center;}
+  #roomName{font-size:14.5px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  #stepCount{font-size:12px; color:var(--mist); display:block; margin-top:1px;}
+  .prog{height:3px; border-radius:3px; background:rgba(243,236,221,.16); margin-top:7px; overflow:hidden;}
+  .prog i{display:block; height:100%; width:0; background:linear-gradient(to left,var(--brass-hi),var(--brass)); border-radius:3px; transition:width .35s ease; margin-inline-start:auto;}
+
+  /* drawer */
+  #scrim2{position:fixed; inset:0; background:rgba(3,8,18,.66); opacity:0; pointer-events:none; transition:opacity .25s; z-index:40;}
+  #scrim2.show{opacity:1; pointer-events:auto;}
+  #drawer{
+    position:fixed; top:0; bottom:0; right:0; width:90%; max-width:400px; background:var(--ink); transform:translateX(100%);
+    transition:transform .32s cubic-bezier(.3,.8,.3,1); z-index:50; display:flex; flex-direction:column; border-left:1px solid var(--line); box-shadow:-14px 0 40px rgba(0,0,0,.5);
+  }
+  #drawer.open{transform:none;}
+  #drawerHead{height:68px; flex:none; display:flex; align-items:center; justify-content:space-between; padding:0 16px 0 14px; border-bottom:1px solid var(--hair);}
+  #drawerHead b{font-family:var(--display); font-weight:600; font-size:18px; display:block; line-height:1.3;}
+  #drawerHead span{font-size:12px; color:var(--brass);}
+  #drawerList{flex:1; overflow-y:auto; padding:6px 16px 24px;}
+  .dr-cat{font-family:var(--display); font-weight:600; font-size:16px; color:var(--brass-hi); margin:20px 0 10px; display:flex; align-items:center; gap:10px;}
+  .dr-cat::after{content:""; flex:1; height:1px; background:var(--hair);}
+  .drawer-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:9px;}
+  .dr-item{padding:0; border:1px solid var(--hair); border-radius:14px 14px 10px 10px; overflow:hidden; background:var(--ink-2); text-align:right; transition:border-color .15s;}
+  .dr-item img{width:100%; height:86px; object-fit:cover; display:block;}
+  .dr-item span{display:block; font-size:11.5px; padding:6px 7px 7px; color:var(--ivory); line-height:1.4; min-height:30px;}
+  .dr-item.on{border-color:var(--brass-hi); box-shadow:0 0 0 1px var(--brass-hi);}
+  #drawer .foot{border-top:1px solid var(--hair);}
+
+  /* video */
+  #videoModal{position:absolute; inset:0; z-index:70; background:rgba(3,8,18,.97); display:none; flex-direction:column;}
+  #videoModal.show{display:flex;}
+  #videoModalHead{height:68px; flex:none; display:flex; align-items:center; justify-content:space-between; padding:0 16px;}
+  #videoModalHead b{font-family:var(--display); font-weight:600; font-size:18px;}
+  #videoBox{flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:0 10px 22px;}
+  #videoBox video{width:100%; height:100%; border:0; border-radius:18px; background:#000; object-fit:contain;}
+  #videoBox iframe{width:100%; max-height:100%; border:0; border-radius:18px; background:#000; aspect-ratio:16/9;}
+
+  /* cover */
+  #cover{position:absolute; inset:0; z-index:60; background:var(--ink); transition:opacity .45s ease, visibility .45s ease;}
+  #cover.hide{opacity:0; visibility:hidden; pointer-events:none;}
+  .cover-hero{position:absolute; inset:0 0 auto 0; height:58%; overflow:hidden; background:var(--ink-2);}
+  #coverBgImg{position:absolute; left:-30px; top:-30px; width:calc(100% + 60px); height:calc(100% + 60px); object-fit:cover; filter:blur(26px) brightness(.72); display:none;}
+  #coverImg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .cover-hero .ph{position:absolute; inset:0; display:none;}
+  #cover.no-cover #coverImg,#cover.no-cover #coverBgImg{display:none !important;}
+  #cover.no-cover .cover-hero .ph{display:grid;}
+  .cover-hero::after{content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(5,13,27,.62) 0%, rgba(5,13,27,0) 30%, rgba(5,13,27,0) 62%, rgba(8,21,41,.9) 100%); pointer-events:none;}
+  .cover-bar{position:absolute; top:0; left:0; right:0; z-index:5; display:flex; align-items:center; justify-content:space-between; padding:max(12px,env(safe-area-inset-top)) 14px 0;}
+  .cover-bar .ibtn{background:rgba(8,21,41,.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);}
+  .cover-bar .logoMark{height:46px; width:auto; filter:drop-shadow(0 2px 8px rgba(0,0,0,.6));}
+  .cover-scroll{position:absolute; inset:0; overflow-y:auto; z-index:4;}
+  .cover-scroll::-webkit-scrollbar{display:none}
+  .cover-spacer{height:min(36vh, 320px);}
+  .sheet{
+    position:relative; min-height:calc(100% - min(36vh, 320px) + 1px); background:var(--ink); border-radius:34px 34px 0 0;
+    padding:26px 20px calc(24px + env(safe-area-inset-bottom)); box-shadow:0 -1px 0 var(--brass), 0 -22px 50px rgba(0,0,0,.45);
+  }
+  .sheet::before{content:""; position:absolute; top:10px; left:50%; width:42px; height:4px; margin-left:-21px; border-radius:4px; background:rgba(243,236,221,.2);}
+  #coverTitle{color:var(--brass-hi); font-family:var(--display); font-weight:700; font-size:34px; line-height:1.3; margin:8px 0 4px; position:relative; display:flex; align-items:center; justify-content:space-between; gap:12px;}
+  #coverSubtitle{margin:0 0 20px; color:var(--brass-hi); font-size:15px; font-weight:500; line-height:1.7;}
+  .sold-stamp{
+    flex:none; padding:1px 14px 3px; border:3px double #4FD6A0; border-radius:8px; color:#4FD6A0; font-family:var(--display); font-size:21px; font-weight:700;
+    transform:rotate(-6deg); background:rgba(43,191,134,.08); white-space:nowrap;
+  }
+  .facts{list-style:none; margin:24px 0 8px; padding:0; border-top:1px solid var(--hair);}
+  .facts li{display:flex; gap:12px; align-items:flex-start; padding:9px 2px; border-bottom:1px solid var(--hair); font-size:15.5px; line-height:1.65; font-weight:500;}
+  .facts li::before{content:""; width:7px; height:7px; margin-top:.78em; flex:none; transform:rotate(45deg); background:var(--brass); border-radius:1px;}
+  .facts li.loc{color:var(--brass-hi); font-weight:600;}
+  .facts li.loc::before{display:none;}
+  .facts li.loc svg{width:19px; height:19px; margin-top:.3em; flex:none;}
+  #mediaGroup{display:flex; flex-direction:column; gap:10px;}
+  #photoGroup,#videoGroup{display:flex; flex-direction:column; gap:10px;}
+  #tourBtns{display:none; flex-direction:column; gap:10px;}
+  .cta{
+    width:100%; height:58px; border-radius:999px; border:0; display:flex; align-items:center; justify-content:center; gap:10px;
+    font-weight:700; font-size:17px; transition:transform .15s;
+  }
+  .cta:active{transform:scale(.985);}
+  .cta svg{width:22px; height:22px;}
+  .cta.gold{background:linear-gradient(135deg,var(--brass-hi),var(--brass) 55%,#B88F45); color:#0a1424; box-shadow:0 10px 26px rgba(201,162,92,.28);}
+  .cta.line{background:transparent; color:var(--ivory); border:1.5px solid var(--brass);}
+  .note{white-space:pre-line; margin:0; padding:11px 14px; border-radius:14px; font-size:14px; font-weight:600; text-align:center; color:#FF6B6B; border:1px dashed #E5484D; background:rgba(229,72,77,.10); display:none;}
+  #actionRow{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;}
+  .act{
+    min-height:54px; padding:8px 10px; border-radius:18px 18px 18px 6px; border:1px solid rgba(37,211,102,.55); background:rgba(37,211,102,.08);
+    display:flex; align-items:center; justify-content:center; gap:8px; font-weight:600; font-size:14.5px; line-height:1.3; text-align:center;
+  }
+  .act svg{width:19px; height:19px; flex:none; color:#4be58a;}
+  .act:active{background:rgba(37,211,102,.2);}
+  .cover-contact{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:22px; padding-top:16px; border-top:1px solid var(--hair);}
+  .cover-contact .label{font-size:14px; font-weight:600;}
+  .cover-contact .links{display:flex; gap:10px;}
+
+  /* شاشات عريضة: الخلفية بملء الشاشة والمحتوى متمركز */
+  @media (min-width:900px){
+    .bar,.foot{padding-left:max(18px, calc((100% - 820px)/2)); padding-right:max(18px, calc((100% - 820px)/2));}
+    .body{padding-left:max(18px, calc((100% - 820px)/2)); padding-right:max(18px, calc((100% - 820px)/2));}
+  }
+  @media (max-height:640px){
+    .splash-logo{height:84px;} .scan{width:112px; height:112px;} .splash-title{font-size:26px;} .splash-text{font-size:14.5px; line-height:1.8;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important; animation-delay:0s !important; transition-duration:.001ms !important;}
+    .draw path{stroke-dashoffset:0;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= البداية ================= -->
+<div id="pageSplash" class="page">
+  <div class="ridge-bg ridge" id="splashRidge" aria-hidden="true"></div>
+  <span class="splash-live" data-live></span>
+  <div class="splash-scroll">
+    <img class="splash-logo" data-logo alt="بصمتك للاستثمار العقاري">
+    <button id="scan" class="scan" aria-label="اضغط مطولاً لتترك بصمتك وتبدأ الجولة">
+      <svg class="scan-prog" viewBox="0 0 140 140" aria-hidden="true">
+        <circle class="trk" cx="70" cy="70" r="66"/>
+        <circle id="scanArc" class="arc" cx="70" cy="70" r="66" transform="rotate(-90 70 70)"/>
+      </svg>
+      <span class="scan-print ridge" id="scanPrint"></span>
+    </button>
+    <div class="scan-hint" id="scanHint">اضغط مطولاً لتترك بصمتك</div>
+    <h1 class="splash-title">نختار لك العقار ونترك لك البصمة</h1>
+    <div class="splash-text">
+      <p>اكتشف العقار الذي يستحق أن يكون اختيارك</p>
+      <p>في بصمتك للاستثمار العقاري، نضع بين يديك تجربة مختلفة لاكتشاف العقارات، من خلال صورها وتفاصيلها وتصفحها بكل سهولة</p>
+      <p>استكشف خياراتك، كوّن تصورك عن المكان، واختر العقار الذي يترك بصمتك.</p>
+    </div>
+    <div class="splash-more">
+      <button id="splashStartBtn" class="splash-btn">ابدأ الجولة <span data-i="chevL"></span></button>
+    </div>
+  </div>
+  <div class="foot" data-foot></div>
+</div>
+
+<!-- ================= بيع / آجار / خدمات ================= -->
+<div id="pageType" class="page">
+  <div class="bar">
+    <div class="brand">
+      <img class="logoMark" data-mark alt="">
+      <div class="brand-text"><b>بصمتك للاستثمار العقاري</b><span>فرع محافظة حماة</span></div>
+    </div>
+    <span data-live></span>
+  </div>
+  <div class="body">
+    <div class="head"><h2>كيف يمكننا مساعدتك ؟</h2><p>اختر طلبك للمتابعة</p></div>
+    <div class="hub">
+      <button class="hub-main" id="goSale">
+        <div class="ridge" data-ridge="sale"></div>
+        <span class="hub-ic" data-i="house"></span>
+        <b>شراء</b>
+        <span class="d">العقارات المعروضة للبيع</span>
+        <small id="saleCount"></small>
+      </button>
+      <button class="hub-rent" id="goRent">
+        <div class="ridge" data-ridge="rent"></div>
+        <span class="hub-ic" data-i="key"></span>
+        <b>آجار</b>
+        <span class="d">عقارات للإيجار</span>
+        <span class="soon">قريباً</span>
+      </button>
+    </div>
+    <div class="svc-list" id="svcList"></div>
+  </div>
+  <div class="foot" data-foot></div>
+</div>
+
+<!-- ================= المناطق ================= -->
+<div id="pageHome" class="page">
+  <div class="bar">
+    <button id="backType" class="ibtn" aria-label="رجوع" data-i="chevR"></button>
+    <div class="brand">
+      <div class="brand-text" style="text-align:left"><b>بصمتك للاستثمار العقاري</b><span>فرع محافظة حماة</span></div>
+      <img class="logoMark" data-mark alt="">
+    </div>
+    <span data-live></span>
+  </div>
+  <div class="body">
+    <div class="head"><h2>اختر المنطقة</h2><p>تصفّح العقارات المعروضة حسب المنطقة</p></div>
+    <div id="categoryGrid"></div>
+  </div>
+  <div class="foot" data-foot></div>
+</div>
+
+<!-- ================= آجار ================= -->
+<div id="pageRent" class="page">
+  <div class="bar">
+    <button id="backTypeFromRent" class="ibtn" aria-label="رجوع" data-i="chevR"></button>
+    <span class="bar-title">آجار</span>
+    <span data-live></span>
+  </div>
+  <div class="body">
+    <div class="head"><h2>عقارات الإيجار</h2></div>
+    <div class="empty">
+      <div class="ridge" data-ridge="empty"></div>
+      سيتم إضافة العقارات المعروضة للإيجار قريباً
+    </div>
+  </div>
+  <div class="foot" data-foot></div>
+</div>
+
+<!-- ================= قائمة العقارات ================= -->
+<div id="pageCategory" class="page">
+  <div class="bar">
+    <button id="backHome" class="ibtn" aria-label="رجوع" data-i="chevR"></button>
+    <span id="categoryTitle" class="bar-title">المنطقة</span>
+    <span data-live></span>
+  </div>
+  <div class="body">
+    <div class="head"><h2>العقارات المتاحة</h2><p>اضغط على أي عقار لبدء الجولة التفاعلية بداخله</p></div>
+    <div id="propertyGrid"></div>
+  </div>
+  <div class="foot" data-foot></div>
+</div>
+
+<!-- ================= العقار ================= -->
+<div id="pageProperty" class="page">
+
+  <div id="viewer">
+    <div id="stage">
+      <img id="stageBg" alt="">
+      <img id="stageImg" alt="">
+      <div id="hotspotLayer"></div>
+    </div>
+    <div class="v-top">
+      <button id="backCategory" class="ibtn" aria-label="رجوع" data-i="chevR"></button>
+      <div class="v-title"><b id="propBrandName">شقة رقم 1</b><span>جولة تفاعلية داخل البيت</span></div>
+      <button id="menuBtn" class="ibtn" aria-label="خريطة الجولة" data-i="grid"></button>
+    </div>
+    <div class="v-dock">
+      <button id="nextBtn" class="nbtn next" aria-label="التالي" data-i="chevL"></button>
+      <div class="v-mid">
+        <div id="roomName"></div>
+        <span id="stepCount">1 / 20</span>
+        <div class="prog"><i id="progBar"></i></div>
+      </div>
+      <button id="prevBtn" class="nbtn" aria-label="السابق" data-i="chevR"></button>
+    </div>
+  </div>
+
+  <div id="videoModal">
+    <div id="videoModalHead">
+      <b id="videoModalTitle">فيديو الشقة</b>
+      <button id="videoClose" class="ibtn" aria-label="إغلاق" data-i="close"></button>
+    </div>
+    <div id="videoBox"></div>
+  </div>
+
+  <div id="scrim2"></div>
+  <div id="drawer">
+    <div id="drawerHead">
+      <div><b>خريطة الجولة</b><span>كل المساحات</span></div>
+      <button id="closeDrawer" class="ibtn" aria-label="إغلاق" data-i="close"></button>
+    </div>
+    <div id="drawerList"></div>
+    <div class="foot" data-foot></div>
+  </div>
+
+  <div id="cover">
+    <div class="cover-hero">
+      <img id="coverBgImg" alt="">
+      <img id="coverImg" alt="">
+      <div class="ph"><div class="ridge" data-ridge="cover"></div><img class="phlogo" data-logo alt=""></div>
+    </div>
+    <div class="cover-bar">
+      <button id="coverBack" class="ibtn" aria-label="رجوع" data-i="chevL"></button>
+      <img class="logoMark" data-mark alt="بصمتك للاستثمار العقاري">
+    </div>
+    <div class="cover-scroll">
+      <div class="cover-spacer"></div>
+      <div class="sheet">
+        <h1 id="coverTitle">شقة رقم 1</h1>
+        <p id="coverSubtitle"></p>
+        <div id="mediaGroup">
+          <div id="photoGroup">
+            <p id="tourNotice" class="note">الصور قيد الإضافة وستظهر هنا قريباً</p>
+            <div id="tourBtns"></div>
+            <button id="startBtn" class="cta gold"><span>مشاهدة صور الشقة</span><span data-i="chevL"></span></button>
+          </div>
+          <div id="videoGroup">
+            <p id="videoNotice" class="note">فيديو الشقة قيد الإضافة، سيتوفر قريباً</p>
+            <button id="videoBtn" class="cta line"><span id="videoBtnLabel">مشاهدة فيديو الشقة</span><span data-i="play"></span></button>
+            <button id="videoBtn2" class="cta line" style="display:none"><span id="videoBtn2Label">مشاهدة فيديو الملحق</span><span data-i="play"></span></button>
+          </div>
+        </div>
+        <div id="actionRow">
+          <a id="priceBtn" class="act" href="#" target="_blank" rel="noopener"><span data-i="tag"></span>معرفة السعر</a>
+          <a id="detailsBtn" class="act" href="#" target="_blank" rel="noopener"><span data-i="info"></span>معرفة تفاصيل أكثر</a>
+        </div>
+        <ul id="coverDescription" class="facts"></ul>
+        <div class="cover-contact" data-foot-inline></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===================== بيانات الأملاك ===================== */
+/* لإضافة منطقة جديدة: زيد عنصر جديد داخل CATEGORIES.
+   لإضافة شقة/بيت جديد: زيد عنصر داخل properties لأي منطقة، وجيب له مصفوفة rooms بنفس شكل rooms تبع "شقة رقم 1". */
+const CATEGORIES = [
+  {
+    id: "janoub_malaab",
+    name: "عقارات جنوب الملعب",
+    properties: [
+      {
+        id: "apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "بيت قبو مساحة 225 متر\nطابو اخضر 2400 سهم\nاكساء ديلوكس\n6 غرف وصالون + مطبخين +حمامين +تواليتين +جنينة\nتصلح للقسمة شقتين\nالبيت مهوي ومضوي\nالموقع : جنوب الملعب قرب جامع صلاح الدين",
+        cover: "jm08",
+        fit: "contain",
+        video: "https://www.dropbox.com/scl/fi/zzq1ewpeld0pmswfuv0sn/XiaoYing_Video_1791127529254_HD.mp4?rlkey=6fkcchtyedobmykci8uzg349r&raw=1", /* ضع هون رابط فيديو الشقة (mp4 أو يوتيوب) */
+        rooms: [
+          { id:"r1", img:"jm07", name:"صالون الضيوف", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"r2", img:"jm05", name:"الصالون 1", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"r3", img:"jm08", name:"الصالون 2", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"r4", img:"jm10", name:"غرفة السفرة", tag:"سفرة", cat:"الصالون", hotspots:[] },
+          { id:"r5", img:"jm03", name:"غرفة 1", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"r6", img:"jm18", name:"غرفة 2", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"r7", img:"jm02", name:"غرفة 3", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"r8", img:"jm17", name:"غرفة 4", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"r9", img:"jm13", name:"مطبخ 1", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+          { id:"r10", img:"jm15", name:"مطبخ 2", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+          { id:"r11", img:"jm06", name:"مطبخ 2 الجهة الثانية", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+          { id:"r12", img:"jm09", name:"الجنينة 1", tag:"جنينة", cat:"الجنينة", hotspots:[] },
+          { id:"r13", img:"jm12", name:"الجنينة 2", tag:"جنينة", cat:"الجنينة", hotspots:[] },
+          { id:"r14", img:"jm01", name:"حمام 1", tag:"حمام", cat:"الحمامات", hotspots:[] },
+          { id:"r15", img:"jm11", name:"حمام 2", tag:"حمام", cat:"الحمامات", hotspots:[] },
+          { id:"r16", img:"jm16", name:"حمام 3", tag:"حمام", cat:"الحمامات", hotspots:[] },
+          { id:"r17", img:"jm04", name:"حمام 4", tag:"حمام", cat:"الحمامات", hotspots:[] },
+          { id:"r18", img:"jm14", name:"ممر 1", tag:"ممر", cat:"الممرات", hotspots:[] },
+          { id:"r19", img:"jm19", name:"ممر 2", tag:"ممر", cat:"الممرات", hotspots:[] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "kornish_bayad",
+    name: "عقارات كورنيش البياض",
+    properties: [
+      {
+        id: "kb_apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "بيت بلاطة كاملة طابق أول صعود 3 درجات\nمساحة 216 متر\nطابو أخضر 2400 سهم\nدكان خاص على الشارع مباشرة\n5 غرف وصالون وجنينتين (منهم 2 غرف ماستر بحمام خاص)\nاكساء ديلوكس مشمسة وتهوية ممتازة لكافة الغرف\nالبناء ملبس حجر وهادي جداً (3 شقق فقط بالبناء)\nالموقع : تبعد 80 متر تقريبا عن رئيسي كورنيش البياض",
+        cover: "kb12",
+        fit: "contain",
+        video: "https://www.dropbox.com/scl/fi/n4t4qwxrxocybuzacnxxl/VID-20260921-WA0007.mp4?rlkey=zratp2kj95arukyxneyh5mz7q&raw=1", /* ضع هون رابط فيديو الشقة (mp4 أو يوتيوب) */
+        rooms: [
+          { id:"c1", img:"kb02", name:"الدرج والبرندة الخارجية", tag:"مدخل", cat:"المدخل والبرندة", hotspots:[] },
+          { id:"c2", img:"kb08", name:"صالون الضيوف", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"c3", img:"kb11", name:"غرفة السفرة", tag:"سفرة", cat:"الصالون", hotspots:[] },
+          { id:"c4", img:"kb01", name:"الصالون 1", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"c5", img:"kb12", name:"الصالون 2", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"c6", img:"kb07", name:"الصالون 3", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"c7", img:"kb10", name:"غرفة 1", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"c8", img:"kb06", name:"غرفة 2", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"c9", img:"kb05", name:"المطبخ", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+          { id:"c10", img:"kb09", name:"الحمام", tag:"حمام", cat:"الحمامات", hotspots:[] },
+          { id:"c11", img:"kb03", name:"الجنينة 1", tag:"جنينة", cat:"الجنينة", hotspots:[] },
+          { id:"c12", img:"kb04", name:"الجنينة 2", tag:"جنينة", cat:"الجنينة", hotspots:[] },
+          { id:"c13", img:"kb13", name:"غرفة 3", tag:"غرفة", cat:"الغرف", hotspots:[] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "karama",
+    name: "عقارات حي الكرامة",
+    properties: [
+      {
+        id: "kr_apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "بيت مساحة 163 متر\nطابو اخضر 2400 سهم\nبناء زاوية اطلالة مفتوحة\nالبيت مهوي ومضوي لجميع الغرف\nاكساء جيد\n4 غرف وصالون + برندة كبيرة\nمع ملحق مشترك مساحة 90 متر\nالموقع : حي الكرامة الشارع الرئيسي مقابل دوار البرناوي",
+        cover: "n01",
+        fit: "contain",
+        tours: [
+          { label: "صور الشقة الأساسية", rooms: [
+            { id:"k1",  img:"n01", name:"البرندة", tag:"برندة", cat:"المدخل والبرندة", hotspots:[] },
+            { id:"k2",  img:"n03", name:"إطلالة البرندة", tag:"برندة", cat:"المدخل والبرندة", hotspots:[] },
+            { id:"k3",  img:"n04", name:"باب الشقة", tag:"مدخل", cat:"المدخل والبرندة", hotspots:[] },
+            { id:"k4",  img:"n02", name:"الدرج", tag:"درج", cat:"المدخل والبرندة", hotspots:[] },
+            { id:"k5",  img:"n07", name:"الصالون", tag:"صالون", cat:"الصالون", hotspots:[] },
+            { id:"k6",  img:"n09", name:"غرفة 1", tag:"غرفة", cat:"الغرف", hotspots:[] },
+            { id:"k7",  img:"n10", name:"غرفة 2", tag:"غرفة", cat:"الغرف", hotspots:[] },
+            { id:"k8",  img:"n08", name:"غرفة 3", tag:"غرفة", cat:"الغرف", hotspots:[] },
+            { id:"k9",  img:"n11", name:"غرفة 4", tag:"غرفة", cat:"الغرف", hotspots:[] },
+            { id:"k10", img:"n06", name:"المطبخ", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+            { id:"k11", img:"n05", name:"المطبخ الجهة الثانية", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+            { id:"k12", img:"n14", name:"الحمام", tag:"حمام", cat:"الحمامات", hotspots:[] },
+            { id:"k13", img:"n12", name:"التواليت", tag:"حمام", cat:"الحمامات", hotspots:[] },
+            { id:"k14", img:"n13", name:"ممر ومغسلة", tag:"ممر", cat:"الممرات", hotspots:[] }
+          ] },
+          { label: "صور الملحق", rooms: [
+            { id:"a1", img:"a07", name:"إطلالة الملحق", tag:"إطلالة", cat:"الإطلالات", hotspots:[] },
+            { id:"a2", img:"a03", name:"الممر", tag:"ممر", cat:"الممرات", hotspots:[] },
+            { id:"a3", img:"a06", name:"المطبخ", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+            { id:"a4", img:"a01", name:"المطبخ الجهة الثانية", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+            { id:"a5", img:"a05", name:"الحمام", tag:"حمام", cat:"الحمامات", hotspots:[] },
+            { id:"a6", img:"a04", name:"المغسلة", tag:"حمام", cat:"الحمامات", hotspots:[] },
+            { id:"a7", img:"a02", name:"إطلالة الغرفة", tag:"إطلالة", cat:"الإطلالات", hotspots:[] }
+          ] }
+        ]
+      },
+      {
+        id: "kr_apt2",
+        name: "شقة رقم 2",
+        subtitle: "بيت سكني للبيع",
+        description: "بيت طابق ثالث مساحة 150 متر\nطابو اخضر 2400 سهم\n5 غرف + صالون صغير + برندتين\nالبيت مهوي ومضوي لجميع الغرف\nاكساء ممتاز\nالموقع : حي الكرامة دوار الباشا",
+        cover: "kr2c",
+        video: "https://www.dropbox.com/scl/fi/j69fe2xvq757lupwj0k8c/IMG_-_-_669.mp4?rlkey=qs72bhmc2kc4cgi3gpcn2jz7b&raw=1",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt3",
+        name: "شقة رقم 3",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ثالث فني\nمساحة 175 متر\nطابو اخضر 2400 سهم\nاكساء ممتاز\n4 غرف وصالون مع برندات كبيرة\nمع ملحق سوبر ديلوكس\nالموقع : حي الكرامة قرب دوار الحبال",
+        cover: "kr3c",
+        video: "https://www.dropbox.com/scl/fi/jzg3m044g7un7b56tjs5e/IMG_-_-_066.mp4?rlkey=xx0xjop328rdysj0sow3sutit&raw=1",
+        extraVideo: { label: "مشاهدة فيديو الملحق", title: "الملحق", url: "https://www.dropbox.com/scl/fi/n20fc744p8e72u66piue5/IMG_-_-_956.mp4?rlkey=4d2o58h6azdydqw5calzaxsye&raw=1" },
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt4",
+        name: "شقة رقم 4",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق اول فني\nمساحة 165 متر\nطابو اخضر 2400 سهم\nاكساء ممتاز\n4 غرف وصالون وبرندات كبيرة\nالموقع : حي الكرامة قرب دوار الصحة",
+        cover: "kr4c",
+        video: "https://www.dropbox.com/scl/fi/up3rln6nmecm8dzriz0ed/IMG_-_-_704.mp4?rlkey=t2qsv4psyzi0k9l9tv9zm4smo&raw=1",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt5",
+        name: "شقة رقم 5",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ثالث فني\nمساحة 170 متر\nطابو اخضر 2400 سهم\nاكساء 80 بالمية\n4 غرف وصالون وبرندات واسعة\nالموقع : حي الكرامة شارع الحبال",
+        cover: "kr5c",
+        video: "https://www.dropbox.com/scl/fi/wvgld9se0tra0a5rc362f/IMG_-_-_916.mp4?rlkey=8id0479so0wuc7t8vcbajvuzo&raw=1",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt6",
+        name: "شقة رقم 6",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ثالث فني\nمساحة 150 متر\nطابو اخضر 2400 سهم\nاكساء ممتاز\n5 غرف وموزع وبرندة كبيرة\nالموقع : حي الكرامة قرب مسجد سعيد الجابي",
+        cover: "kr6c",
+        video: "https://www.dropbox.com/scl/fi/r4ragst0v80fzs44oje65/IMG_-_-_311.mp4?rlkey=x7pmbrjrtbs0ki55im8xdkpw6&raw=1",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt7",
+        name: "شقة رقم 7",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ارضي\nمساحة 325 متر\nمخرج منها كراج\nمساحة البناء 160 متر\nطابو اخضر 2400 سهم\nالموقع : حي الكرامة",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt8",
+        name: "شقة رقم 8",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ثاني فني\nمساحة 140 متر\nطابو اخضر 2400 سهم\nاكساء 40 بالمية\nالموقع : حي الكرامة جمعية الشرطة",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt9",
+        name: "شقة رقم 9",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ارضي\nمساحة 350 متر\nمخرج منها محلين\nطابو اخضر 2400 سهم\nالموقع : حي الكرامة",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt10",
+        name: "شقة رقم 10",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ارضي\nمساحة 470 متر\nطابو اخضر 2400 سهم\nاكساء عضم\nالموقع : حي الكرامة قرب دوار الباشا",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt11",
+        name: "شقة رقم 11",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ارضي\nمساحة 400 متر\nطابو اخضر 2400 سهم\nاكساء جيد جدا\nالموقع : حي الكرامة قرب دوار الباشا",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "kr_apt12",
+        name: "شقة رقم 12",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ثالث زاوية\nمساحة 180 متر\nطابو اخضر 2400 سهم\nاكساء جيد\nبرندة على داير الشقة\nالموقع : حي الكرامة - جمعية الاتحاد النسائي",
+        cover: "kr12c",
+        video: "https://www.dropbox.com/scl/fi/9fnfjo6u6p1zqwdm18n8u/VID-20261008-WA0034-1.mp4?rlkey=xmnzat2hiqaqxccfngxitg0eb&raw=1",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "barnawi",
+    name: "عقارات البرناوي",
+    cover: "brcat",
+    properties: [
+      {
+        id: "br_apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق تاني فني\nمساحة 220 متر\nطابو اخضر 2400 سهم\nاكساء عضم\nالموقع : حي البرناوي قرب مطعم أبو الزوز",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "br_apt2",
+        name: "شقة رقم 2",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق اول فني زاوية\nمساحة 160 متر\nطابو اخضر 2400 سهم\nاكساء عضم\nالموقع : حي البرناوي اول دخلة البرناوي",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "br_apt3",
+        name: "شقة رقم 3",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق تاني فني\nطابو اخضر 2400 سهم\nاكساء عضم\nالموقع : حي البرناوي قرب مدرسة عبد الناصر",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "br_apt4",
+        name: "شقة رقم 4",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق تاني فني\nمساحة 200 متر\nطابو اخضر 2400 سهم\nاكساء سوبر ديلوكس\nالموقع : حي البرناوي الشارع الرئيسي",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "tatan",
+    name: "عقارات حي التتان",
+    cover: "ttcat",
+    properties: [
+      {
+        id: "tt_apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق اول فني بلاطة\nمساحة 180 متر\nطابو اخضر 2400 سهم\nاكساء سوبر ديلوكس\nالموقع : حي التتان قرب مدرسة عبد الغني",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "tt_apt2",
+        name: "شقة رقم 2",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة قبو بلاطة\nمساحة 200 متر\nطابو اخضر 2400 سهم\nاكساء سوبر ديلوكس\nالموقع : حي التتان قرب مدرسة عبد الغني",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      },
+      {
+        id: "tt_apt3",
+        name: "شقة رقم 3",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة ملحق بلاطة\nمساحة 200 متر\nاكساء سوبر ديلوكس\nالموقع : حي التتان قرب مدرسة عبد الغني",
+        cover: "ph",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "shariaa",
+    name: "عقارات حي الشريعة",
+    properties: [
+      {
+        id: "sh_apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ارضي\nمساحة 225 متر\nطابو اخضر 2400 سهم\nاكساء سوبر ديلوكس\n5 غرف وصالون وبرندة\nمع وجود ملحق غرفتين وصالون اكساء سوبر ديلوكس\nالموقع : حي الشريعة كتف الشريعة",
+        cover: "sh1c",
+        video: "https://www.dropbox.com/scl/fi/49z8v6xx4w5cwd1pwdi75/IMG_-_-_587.mp4?rlkey=7bsnhorzzwxcpjxom9y60qgbx&raw=1",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "andalus",
+    name: "عقارات حي الأندلس",
+    properties: [
+      {
+        id: "an_apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق اول ثلاث زوايا\nمساحة 225 متر\nطابو اخضر 2400 سهم\nاكساء سوبر ديلوكس\n4 غرف وصالون وبرندات كبيرة\nمع ملحق مكسي مساحة 120\nالموقع : حي الاندلس قرب كافيه ماركيز",
+        cover: "and11",
+        fit: "contain",
+        rooms: [
+          { id:"a1", img:"and12", name:"الصالون 1", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"a2", img:"and16", name:"الصالون 2", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"a3", img:"and13", name:"الصالون 3", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"a4", img:"and04", name:"الصالون 4", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"a5", img:"and18", name:"صالون الضيوف", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"a6", img:"and03", name:"غرفة 1", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"a7", img:"and05", name:"غرفة 2", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"a8", img:"and06", name:"غرفة 3", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"a9", img:"and01", name:"غرفة 4", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"a10", img:"and10", name:"غرفة 5", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"a11", img:"and09", name:"المطبخ", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+          { id:"a12", img:"and11", name:"المطبخ الجهة الثانية", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+          { id:"a13", img:"and02", name:"البرندة 1", tag:"برندة", cat:"المدخل والبرندة", hotspots:[] },
+          { id:"a14", img:"and14", name:"البرندة 2", tag:"برندة", cat:"المدخل والبرندة", hotspots:[] },
+          { id:"a15", img:"and17", name:"البرندة 3", tag:"برندة", cat:"المدخل والبرندة", hotspots:[] },
+          { id:"a16", img:"and08", name:"ممر 1", tag:"ممر", cat:"الممرات", hotspots:[] },
+          { id:"a17", img:"and15", name:"ممر 2", tag:"ممر", cat:"الممرات", hotspots:[] },
+          { id:"a18", img:"and07", name:"إطلالة", tag:"إطلالة", cat:"الإطلالات", hotspots:[] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "bayad",
+    name: "عقارات حي البياض",
+    properties: [
+      {
+        id: "by_apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق اول فني بلاطة\nمساحة 150 متر\nطابو اخضر 2400 سهم\nاكساء ممتاز جدا\n4 غرف وصالون وبرندتين\nالموقع : حي البياض قرب جامع سيدنا بلال",
+        cover: "by1c",
+        video: "https://www.dropbox.com/scl/fi/56ffj2hl0xjvsnqp63hx5/IMG_-_-_482.mp4?rlkey=19qybtl2lj2sbgi77t3seoszj&raw=1",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "arbaeen",
+    name: "عقارات حي الأربعين",
+    properties: [
+      {
+        id: "ar_apt1",
+        name: "شقة رقم 1",
+        sold: true,
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق ثالث واجهة\nمساحة 60 متر\nطابو 1200 سهم\nاكساء ممتاز جدا\nغرفتين وصالون وبرندة\nالموقع : حي الأربعين قرب معهد المراقبين",
+        cover: "ar1c",
+        video: "https://www.dropbox.com/scl/fi/0a6youvl5f68yicy9vnhe/VID-20260921-WA0004-1.mp4?rlkey=e3pyoecdmdz1ik8qbje9y9gwf&raw=1",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "karm_hawrani",
+    name: "عقارات كرم الحوراني",
+    properties: [
+      {
+        id: "kh_apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق اول بلاطة واجهة\nمساحة 120 متر\nطابو اخضر 2400 سهم\nاكساء جيد جدا\n4 غرف وصالون مع برندتين مع ملحق غرفة\nالموقع : نزلة البياض اول دخلة بعد الرفادة",
+        cover: "kh1c",
+        video: "https://www.dropbox.com/scl/fi/ri5wj0szz6uhmsp5a4u75/IMG_-_-_362.mp4?rlkey=da2tduocvrwcakuby5poeifer&raw=1",
+        tours: [
+          { label: "صور الشقة", rooms: [] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "assi_square",
+    name: "عقارات ساحة العاصي",
+    properties: [
+      {
+        id: "as_off1",
+        name: "مكاتب رقم 1",
+        subtitle: "مكاتب للبيع",
+        videoLabel: "مشاهدة فيديو المكاتب",
+        description: "16 مكتب في نفس البناء\nمساحات 25-35 متر\nطابو اخضر 2400 سهم\nاكساء عضم\nالموقع : ساحة العاصي بناء فندق الزهرة",
+        cover: "as1c",
+        video: "https://www.dropbox.com/scl/fi/uyv34tvy3rg6ecnibb7a8/VID_20260926_161127.mp4?rlkey=rpqszkeferc9yieg6npsr9oe2&raw=1",
+        tours: [
+          { label: "مشاهدة صور المكاتب", rooms: [] }
+        ]
+      }
+    ]
+  },
+  {
+    id: "tishreen",
+    name: "عقارات حي تشرين",
+    properties: [
+      {
+        id: "ts_apt1",
+        name: "شقة رقم 1",
+        subtitle: "بيت سكني للبيع",
+        description: "شقة طابق رابع مع وجود مصعد شغال\nمساحة 145 متر\nطابو اخضر 2400 سهم\nاكساء سوبر ديلوكس\n4 غرف ومنتعات وبرندات على داير الشقة\nالموقع : حي تشرين جمعية الصحة",
+        cover: "ts09",
+        fit: "contain",
+        rooms: [
+          { id:"t1", img:"ts10", name:"الصالون 1", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"t2", img:"ts05", name:"الصالون 2", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"t3", img:"ts09", name:"صالون الضيوف", tag:"صالون", cat:"الصالون", hotspots:[] },
+          { id:"t4", img:"ts01", name:"غرفة نوم", tag:"غرفة", cat:"الغرف", hotspots:[] },
+          { id:"t5", img:"ts07", name:"المطبخ", tag:"مطبخ", cat:"المطابخ", hotspots:[] },
+          { id:"t6", img:"ts08", name:"البرندة 1", tag:"برندة", cat:"المدخل والبرندة", hotspots:[] },
+          { id:"t7", img:"ts14", name:"البرندة 2", tag:"برندة", cat:"المدخل والبرندة", hotspots:[] },
+          { id:"t8", img:"ts03", name:"حمام 1", tag:"حمام", cat:"الحمامات", hotspots:[] },
+          { id:"t9", img:"ts06", name:"حمام 2", tag:"حمام", cat:"الحمامات", hotspots:[] },
+          { id:"t10", img:"ts13", name:"ممر 1", tag:"ممر", cat:"الممرات", hotspots:[] },
+          { id:"t11", img:"ts11", name:"ممر المدخل", tag:"ممر", cat:"الممرات", hotspots:[] },
+          { id:"t12", img:"ts02", name:"ممر 2", tag:"ممر", cat:"الممرات", hotspots:[] },
+          { id:"t13", img:"ts04", name:"مدخل الشقة والدرج", tag:"ممر", cat:"الممرات", hotspots:[] },
+          { id:"t14", img:"ts12", name:"المصعد", tag:"مصعد", cat:"المصعد", hotspots:[] }
+        ]
+      }
+    ]
+  }
+];
+
+/* ترتيب الصور: صالون، غرف، مطبخ، جناين/برندات، حمام، ثم أي إضافات */
+const ROOM_CATS = ["الصالون","الغرف","المطابخ","الجنينة","المدخل والبرندة","الحمامات","الممرات","المصعد","الإطلالات","الدكان"];
+(function sortAllRooms(){
+  const rank = c => { const k = ROOM_CATS.indexOf(c); return k === -1 ? 99 : k; };
+  const sub = r => r.cat !== "الصالون" ? 0 : (/ضيوف/.test(r.name) ? 1 : (r.tag === "سفرة" ? 2 : 0));
+  const sortRooms = arr => arr.sort((a,b)=> (rank(a.cat) - rank(b.cat)) || (sub(a) - sub(b)));
+  CATEGORIES.forEach(c=>c.properties.forEach(p=>{
+    if(p.rooms) sortRooms(p.rooms);
+    if(p.tours) p.tours.forEach(t=>sortRooms(t.rooms));
+  }));
+})();
+
+const WA_NUMBER = "963962661084";
+const LINKS = {
+  phone:"tel:+963962661084",
+  whatsapp:"https://wa.me/963962661084",
+  instagram:"https://www.instagram.com/basmatak_re?stkn=cHlsdjlkbG4wY25q",
+  facebook:"https://www.facebook.com/share/19SrUssyQM/"
+};
+const SERVICES = [
+  { icon:"search", title:"طلب عقار مخصص", desc:"اشرح طلبك وستتم الاستجابة بأسرع وقت", href:"https://wa.me/963962661084?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%20%D8%B9%D9%82%D8%A7%D8%B1%20%D9%85%D8%AE%D8%B5%D8%B5" },
+  { icon:"building", title:"اعرض عقارك لدينا", desc:"للبيع أو الآجار", href:"https://wa.me/963962661084?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A3%D9%86%20%D8%A3%D8%B9%D8%B1%D8%B6%20%D8%B9%D9%82%D8%A7%D8%B1%D9%8A%20%D9%84%D8%AF%D9%8A%D9%83%D9%85" },
+  { icon:"roller", title:"خدمات إكساء", desc:"اطلب خدمة الإكساء", href:"https://wa.me/963962661084?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%A5%D9%83%D8%B3%D8%A7%D8%A1" },
+  { icon:"chat", title:"استشارة عقارية", desc:"احصل على استشارة عقارية", href:"https://wa.me/963962661084?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%20%D8%A7%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1%D8%A9%20%D8%B9%D9%82%D8%A7%D8%B1%D9%8A%D8%A9" }
+];
+
+/* ---------- أيقونات ---------- */
+const S = (p,extra="") => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}>${p}</svg>`;
+const ICON = {
+  chevR: S('<path d="M9 6l6 6-6 6"/>','stroke-width="2.4"'),
+  chevL: S('<path d="M15 6l-6 6 6 6"/>','stroke-width="2.4"'),
+  close: S('<path d="M6 6l12 12M18 6L6 18"/>','stroke-width="2.4"'),
+  grid:  S('<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'),
+  house: S('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>','stroke-width="1.7"'),
+  key:   S('<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9"/><path d="M16 7l3 3"/><path d="M14 9l2 2"/>','stroke-width="1.7"'),
+  search:S('<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M10.5 8v5M8 10.5h5"/>','stroke-width="1.7"'),
+  building:S('<rect x="4" y="3" width="11" height="18" rx="1"/><path d="M8 7h3M8 11h3M8 15h3"/><path d="M19 14v6M16 17h6"/>','stroke-width="1.7"'),
+  roller:S('<rect x="4" y="3" width="14" height="6" rx="1.5"/><path d="M18 6h2v5H11v3"/><rect x="9" y="14" width="4" height="7" rx="1"/>','stroke-width="1.7"'),
+  chat:  S('<path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-5.5A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/>','stroke-width="1.7"'),
+  pin:   S('<path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/>'),
+  play:  '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+  image: S('<rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 9"/>'),
+  tag:   S('<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.4" fill="currentColor"/>'),
+  info:  S('<circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="7.8" r="1" fill="currentColor"/>'),
+  call:  '<svg viewBox="0 0 24 24" fill="none" stroke="#EBCB8A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+  wa:    '<svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.19.28-.74.92-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.19-.44-2.26-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.55-.47-.48-.64-.49-.16-.01-.35-.01-.54-.01-.19 0-.5.07-.76.35-.26.28-1 1-1 2.42 0 1.43 1.03 2.82 1.17 3.01.14.19 2.03 3.1 4.92 4.35.69.3 1.22.48 1.64.61.69.22 1.31.19 1.81.12.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.19-.54-.33z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.98.58 3.83 1.58 5.39L2 22l4.75-1.55C8.28 21.44 10.09 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.7 0-3.29-.49-4.63-1.34l-.33-.2-3.16 1.03 1.05-3.08-.21-.32C3.63 14.68 3.09 13.38 3.09 12 3.09 7.06 7.06 3.09 12 3.09S20.91 7.06 20.91 12 16.94 20.91 12 20.91z"/></svg>',
+  ig:    '<svg viewBox="0 0 24 24" fill="none" stroke="#E4405F" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#E4405F" stroke="none"/></svg>',
+  fb:    '<svg viewBox="0 0 24 24" fill="#1877F2"><path d="M13.5 21v-7.8h2.6l.4-3h-3v-1.9c0-.9.24-1.5 1.55-1.5H16.6V4.1C16.3 4.05 15.3 4 14.15 4 11.7 4 10 5.49 10 8.24v2h-2.6v3H10V21h3.5z"/></svg>'
+};
+
+/* ---------- خطوط البصمة (الهوية البصرية) ---------- */
+function mulberry(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function ridgeSVG(o){
+  const {w=400,h=400,cx=200,cy=200,rings=24,gap=8,seed=1,ry=1.28,sw=1.3,draw=false,fade=.012,max=.6,slice=true} = o;
+  const rnd = mulberry(seed), ph=[rnd()*6.3,rnd()*6.3,rnd()*6.3];
+  const N = rings>30 ? 150 : 110;
+  let s = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid ${slice?'slice':'meet'}" class="${draw?'draw':''}" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" aria-hidden="true">`;
+  for(let i=1;i<=rings;i++){
+    const R=i*gap, gaps=[], ng=1+Math.floor(rnd()*2.4);
+    for(let g=0;g<ng;g++) gaps.push([rnd()*N, 3+rnd()*9]);
+    const inGap = k => gaps.some(([a,l])=> ((k-a+N)%N) < l);
+    const op = Math.max(.08, max - i*fade).toFixed(2);
+    let d="", pen=false;
+    const flush = () => { if(d){ s += `<path d="${d}" pathLength="1" style="opacity:${op};--i:${i}"/>`; } d=""; pen=false; };
+    for(let k=0;k<=N;k++){
+      const t=k/N*Math.PI*2;
+      const dist = 1 + .05*Math.sin(2*t+ph[0]+i*.09) + .035*Math.sin(3*t+ph[1]-i*.06) + .02*Math.sin(5*t+ph[2]+i*.11);
+      let yy = R*ry*dist*Math.sin(t); if(Math.sin(t)>0) yy*=.92;
+      const x = cx + R*dist*Math.cos(t), y = cy + yy - i*.35;
+      if(inGap(k%N)){ flush(); continue; }
+      d += (pen?"L":"M") + x.toFixed(1) + " " + y.toFixed(1); pen=true;
+    }
+    flush();
+  }
+  return s + "</svg>";
+}
+const RIDGE_PRESETS = {
+  sale:  {w:290,h:290,cx:120,cy:130,rings:22,gap:8.5,seed:11,sw:1.2,max:.7,fade:.02},
+  rent:  {w:220,h:220,cx:110,cy:120,rings:16,gap:8.5,seed:23,sw:1.1,max:.6,fade:.025},
+  empty: {w:210,h:210,cx:105,cy:105,rings:13,gap:7.6,seed:5,sw:1.3,max:.85,fade:.04,draw:true},
+  cover: {w:400,h:340,cx:200,cy:170,rings:30,gap:9.5,seed:31,sw:1.1,max:.4,fade:.01},
+  ph:    {w:140,h:140,cx:70,cy:72,rings:10,gap:6.8,seed:7,sw:1.1,max:.65,fade:.03}
+};
+function mountRidges(root=document){
+  root.querySelectorAll("[data-ridge]").forEach(el=>{
+    if(el.dataset.mounted) return; el.dataset.mounted="1";
+    el.innerHTML = ridgeSVG(RIDGE_PRESETS[el.dataset.ridge]);
+  });
+}
+function phHTML(seed){
+  return `<span class="ph"><span class="ridge">${ridgeSVG({...RIDGE_PRESETS.ph, seed:seed||7})}</span><img class="phlogo" src="${logoLight}" alt=""></span>`;
+}
+
+/* ---------- حالة التطبيق ---------- */
+let dataMap = {}, logoLight = "";
+let currentCategory = null, currentProperty = null, currentRooms = [], current = 0;
+
+function $(s,el=document){return el.querySelector(s);}
+function $all(s,el=document){return [...el.querySelectorAll(s)];}
+const isPh = k => !k || k==="ph";
+
+function contactHTML(){
+  return `<span class="label">تواصل معنا هنا :</span>
+    <div class="links">
+      <a class="cbtn" href="${LINKS.phone}" aria-label="اتصال">${ICON.call}</a>
+      <a class="cbtn" href="${LINKS.whatsapp}" target="_blank" rel="noopener" aria-label="واتساب">${ICON.wa}</a>
+      <a class="cbtn" href="${LINKS.instagram}" target="_blank" rel="noopener" aria-label="انستغرام">${ICON.ig}</a>
+      <a class="cbtn" href="${LINKS.facebook}" target="_blank" rel="noopener" aria-label="فيسبوك">${ICON.fb}</a>
+    </div>`;
+}
+
+function showPage(id){
+  $all(".page").forEach(p=>p.classList.remove("active"));
+  $("#"+id).classList.add("active");
+  if(id !== "pageSplash") armBackGuard();
+}
+
+/* ---------- زر الرجوع تبع الموبايل ---------- */
+let backGuard = false;
+function armBackGuard(){ if(backGuard) return; try{ history.pushState({appGuard:true}, ""); backGuard = true; }catch(e){} }
+function appBack(){
+  if($("#videoModal").classList.contains("show")){ closeVideo(); return true; }
+  if($("#drawer").classList.contains("open")){ closeDrawer(); return true; }
+  const active = document.querySelector(".page.active");
+  const id = active ? active.id : "pageSplash";
+  if(id === "pageProperty"){
+    if($("#cover").classList.contains("hide")){ $("#cover").classList.remove("hide"); }
+    else { showPage("pageCategory"); }
+    return true;
+  }
+  if(id === "pageCategory"){ showPage("pageHome"); return true; }
+  if(id === "pageHome" || id === "pageRent"){ showPage("pageType"); return true; }
+  if(id === "pageType"){ showPage("pageSplash"); return true; }
+  return false;
+}
+document.addEventListener("contextmenu", e=>e.preventDefault());
+document.addEventListener("dragstart", e=>e.preventDefault());
+window.addEventListener("popstate", ()=>{
+  backGuard = false;
+  if(appBack()){
+    const active = document.querySelector(".page.active");
+    if(active && active.id !== "pageSplash") armBackGuard();
+  } else { history.back(); }
+});
+
+/* ---------- صفحة البداية: ضغط مطوّل لترك البصمة ---------- */
+function setupSplash(){
+  $("#splashRidge").innerHTML = ridgeSVG({w:390,h:800,cx:195,cy:300,rings:62,gap:9.2,seed:3,ry:1.22,sw:1.15,draw:true,max:.62,fade:.0085});
+  $("#scanPrint").innerHTML = ridgeSVG({w:100,h:100,cx:50,cy:56,rings:13,gap:3.5,seed:9,ry:1.3,sw:1.5,max:1,fade:.05,slice:false});
+
+  const scan=$("#scan"), arc=$("#scanArc"), splash=$("#pageSplash"), hint=$("#scanHint");
+  const HOLD=1000, CIRC=415; let raf=0, t0=0, done=false, active=false;
+  const setP = p => { arc.style.strokeDashoffset = CIRC*(1-p); };
+  const vib = p => { try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} };
+
+  function finish(){
+    if(done) return; done=true; cancelAnimationFrame(raf); setP(1);
+    vib([14,50,26]); hint.textContent="تم تسجيل بصمتك";
+    const r=scan.getBoundingClientRect();
+    rippleTo(r.left+r.width/2, r.top+r.height/2, "pageType");
+    setTimeout(()=>{ done=false; active=false; splash.classList.remove("holding"); setP(0); hint.textContent="اضغط مطولاً لتترك بصمتك"; }, 1300);
+  }
+  function tick(t){
+    const p=Math.min(1,(t-t0)/HOLD); setP(p);
+    if(p>=1){ finish(); } else { raf=requestAnimationFrame(tick); }
+  }
+  function start(e){
+    if(done||active) return; e.preventDefault(); active=true;
+    try{ scan.setPointerCapture(e.pointerId); }catch(_){}
+    splash.classList.add("holding"); vib(10); hint.textContent="استمر بالضغط";
+    t0=performance.now(); raf=requestAnimationFrame(tick);
+  }
+  function cancel(){
+    if(done||!active) return; active=false; cancelAnimationFrame(raf);
+    splash.classList.remove("holding"); hint.textContent="اضغط مطولاً لتترك بصمتك";
+    const from=parseFloat(arc.style.strokeDashoffset)||CIRC;
+    arc.style.transition="stroke-dashoffset .35s ease"; setP(0);
+    setTimeout(()=>{ arc.style.transition=""; },380);
+  }
+  scan.addEventListener("pointerdown", start);
+  scan.addEventListener("pointerup", cancel);
+  scan.addEventListener("pointercancel", cancel);
+  scan.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); active=true; finish(); } });
+  $("#splashStartBtn").addEventListener("click", ()=>{
+    const r=$("#splashStartBtn").getBoundingClientRect();
+    rippleTo(r.left+r.width/2, r.top+r.height/2, "pageType");
+  });
+}
+function rippleTo(x,y,pageId){
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce){ showPage(pageId); return; }
+  const r=document.createElement("div"); r.className="ripple"; r.style.left=x+"px"; r.style.top=y+"px";
+  document.body.appendChild(r);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>r.classList.add("go")));
+  setTimeout(()=>showPage(pageId), 540);
+  setTimeout(()=>r.classList.add("out"), 600);
+  setTimeout(()=>r.remove(), 1200);
+}
+
+/* ---------- صفحة الاختيار ---------- */
+function buildType(){
+  const nProps = CATEGORIES.reduce((n,c)=>n+c.properties.length,0);
+  $("#saleCount").textContent = nProps + " عقار في " + CATEGORIES.length + " منطقة";
+  $("#svcList").innerHTML = SERVICES.map(s=>`
+    <a class="svc" href="${s.href}" target="_blank" rel="noopener">
+      <span class="svc-ic">${ICON[s.icon]}</span>
+      <span class="svc-t"><b>${s.title}</b><span>${s.desc}</span></span>
+      ${ICON.chevL}
+    </a>`).join("");
+}
+
+/* ---------- المناطق ---------- */
+function buildHome(){
+  const wrap = $("#categoryGrid"); wrap.innerHTML = "";
+  const TIE_ORDER = ["kornish_bayad","andalus","shariaa","bayad","karm_hawrani","janoub_malaab","arbaeen","assi_square"];
+  const rank = id => { const k = TIE_ORDER.indexOf(id); return k === -1 ? 999 : k; };
+  [...CATEGORIES].sort((x,y)=> (y.properties.length - x.properties.length) || (rank(x.id) - rank(y.id))).forEach((cat,idx)=>{
+    const key = cat.cover ? cat.cover : (cat.properties[0] ? cat.properties[0].cover : "ph");
+    const n = cat.properties.length;
+    const card = document.createElement("button");
+    card.className = "area";
+    card.innerHTML = `
+      <span class="arch">${isPh(key) ? phHTML(idx+3) : `<img src="${thumb(key)}" alt="" loading="lazy" decoding="async">`}</span>
+      <span class="area-t"><b>${cat.name}</b></span>
+      <span class="area-n"><em>${n}</em><span>${n===1 ? "عقار" : "عقارات"}</span></span>`;
+    card.addEventListener("click", ()=>openCategory(cat.id));
+    wrap.appendChild(card);
+  });
+}
+
+/* ---------- قائمة العقارات ---------- */
+function parseDesc(p){
+  const lines = (p.description||"").split("\n").map(s=>s.trim()).filter(Boolean);
+  const locLine = lines.find(l=>/^الموقع/.test(l));
+  const loc = locLine ? locLine.replace(/^الموقع\s*:?\s*/,"") : "";
+  const am = (p.description||"").match(/مساح(?:ة|ات)\s+[\d٠-٩][\d٠-٩\-–]*\s*متر/); const area = am ? am[0] : "";
+  return {lines, loc, area};
+}
+function photoCount(p){
+  if(p.tours) return p.tours.reduce((n,t)=>n+(t.rooms?t.rooms.length:0),0);
+  return p.rooms ? p.rooms.length : 0;
+}
+function openCategory(catId){
+  currentCategory = CATEGORIES.find(c=>c.id===catId);
+  $("#categoryTitle").textContent = currentCategory.name;
+  const wrap = $("#propertyGrid"); wrap.innerHTML = "";
+  if(!currentCategory.properties.length){
+    wrap.innerHTML = '<p class="empty">سيتم إضافة العقارات في هذه المنطقة قريباً</p>';
+  }
+  currentCategory.properties.forEach((p,idx)=>{
+    const {loc,area} = parseDesc(p);
+    const pc = photoCount(p);
+    const card = document.createElement("button");
+    card.className = "listing" + (p.sold ? " is-sold" : "");
+    card.innerHTML = `
+      ${isPh(p.cover) ? phHTML(idx+17) : `<img src="${thumb(p.cover)}" alt="" loading="lazy" decoding="async">`}
+      ${p.sold ? '<span class="ribbon">تم البيع</span>' : ''}
+      <span class="listing-in">
+        <b>${p.name}</b>
+        ${loc ? `<span class="loc">${ICON.pin}<span>${loc}</span></span>` : ""}
+        <span class="chips">
+          <span class="chip">${p.subtitle}</span>
+          ${area ? `<span class="chip">${area}</span>` : ""}
+          ${pc ? `<span class="chip">${ICON.image}${pc} صورة</span>` : ""}
+          ${p.video ? `<span class="chip">${ICON.play}فيديو</span>` : ""}
+        </span>
+      </span>`;
+    card.addEventListener("click", ()=>openProperty(p.id));
+    wrap.appendChild(card);
+  });
+  showPage("pageCategory");
+}
+
+/* ---------- صفحة العقار ---------- */
+function openProperty(propId){
+  currentProperty = currentCategory.properties.find(p=>p.id===propId);
+  const hasTours = !!currentProperty.tours;
+  currentRooms = hasTours ? [] : currentProperty.rooms;
+
+  const coverKey = currentProperty.cover, noCover = isPh(coverKey);
+  const contain = currentProperty.fit === "contain";
+  $("#coverImg").src = noCover ? "" : dataMap[coverKey];
+  $("#coverBgImg").src = noCover ? "" : dataMap[coverKey];
+  $("#coverImg").style.objectFit = contain ? "contain" : "cover";
+  $("#coverBgImg").style.display = contain && !noCover ? "block" : "none";
+  $("#cover").classList.toggle("no-cover", noCover);
+  $("#cover .cover-scroll").scrollTop = 0;
+
+  const title = $("#coverTitle");
+  title.textContent = currentProperty.name;
+  if(currentProperty.sold){
+    const stamp=document.createElement("span"); stamp.className="sold-stamp"; stamp.textContent="تم البيع"; title.appendChild(stamp);
+  }
+  $("#coverSubtitle").textContent = currentProperty.subtitle + " — " + currentCategory.name;
+  const facts = $("#coverDescription"); facts.innerHTML = "";
+  parseDesc(currentProperty).lines.forEach(line=>{
+    const li=document.createElement("li");
+    if(/^الموقع/.test(line)){ li.className="loc"; li.innerHTML = ICON.pin; const sp=document.createElement("span"); sp.textContent=line; li.appendChild(sp); }
+    else li.textContent = line;
+    facts.appendChild(li);
+  });
+  $("#propBrandName").textContent = currentProperty.name;
+
+  const priceMsg = "السلام عليكم، بدي أعرف سعر " + currentProperty.name + " (" + currentCategory.name + ") - رمز العقار: " + currentProperty.id;
+  $("#priceBtn").href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(priceMsg);
+  const detailsMsg = "السلام عليكم، أريد معرفة تفاصيل أكثر عن " + currentProperty.name + " (" + currentCategory.name + ") - رمز العقار: " + currentProperty.id;
+  $("#detailsBtn").href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(detailsMsg);
+
+  $("#tourNotice").style.display = "none";
+  $("#startBtn").style.display = hasTours ? "none" : "flex";
+  $("#videoBtn").style.display = "flex";
+  $("#videoBtnLabel").textContent = currentProperty.videoLabel || "مشاهدة فيديو الشقة";
+  const ev = currentProperty.extraVideo;
+  $("#videoBtn2").style.display = ev ? "flex" : "none";
+  if(ev) $("#videoBtn2Label").textContent = ev.label;
+  $("#videoNotice").style.display = "none";
+  closeVideo();
+
+  const hasPhotos = hasTours ? currentProperty.tours.some(t=>t.rooms && t.rooms.length>0) : !!(currentProperty.rooms && currentProperty.rooms.length);
+  const hasVideo = !!currentProperty.video;
+  const videoFirst = hasVideo && !hasPhotos;
+  $("#photoGroup").style.order = videoFirst ? 1 : 0;
+  $("#videoGroup").style.order = videoFirst ? 0 : 1;
+
+  const tb = $("#tourBtns"); tb.innerHTML = ""; tb.style.display = hasTours ? "flex" : "none";
+  if(hasTours){
+    currentProperty.tours.forEach((t,idx)=>{
+      const b = document.createElement("button");
+      b.className = "cta " + (idx>0 ? "line" : "gold");
+      b.innerHTML = `<span>${t.label}</span>${ICON.chevL}`;
+      b.addEventListener("click", ()=>{
+        if(!t.rooms.length){
+          const n = $("#tourNotice");
+          n.textContent = "الصور قيد الإضافة وستظهر هنا قريباً" + (currentProperty.video ? "\nالمتوفر لهذه الشقة: الفيديو فقط" : "");
+          n.style.display = "block";
+          return;
+        }
+        currentRooms = t.rooms; buildDrawer(); goTo(0); $("#cover").classList.add("hide");
+      });
+      tb.appendChild(b);
+    });
+  } else { buildDrawer(); goTo(0); }
+  $("#cover").classList.remove("hide");
+  showPage("pageProperty");
+}
+
+function toEmbed(url){
+  let m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/);
+  if(m) return {type:"iframe", src:"https://www.youtube.com/embed/"+m[1]+"?autoplay=1&rel=0"};
+  m = url.match(/vimeo\.com\/(\d+)/);
+  if(m) return {type:"iframe", src:"https://player.vimeo.com/video/"+m[1]+"?autoplay=1"};
+  m = url.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+  if(m) return {type:"iframe", src:"https://drive.google.com/file/d/"+m[1]+"/preview"};
+  return {type:"video", src:url};
+}
+function propHasPhotos(p){
+  if(!p) return false;
+  return (p.tours && p.tours.length) ? p.tours.some(t=>t.rooms && t.rooms.length>0) : !!(p.rooms && p.rooms.length);
+}
+function openVideo(urlArg, titleArg){
+  const url = urlArg || (currentProperty && currentProperty.video);
+  if(!url){
+    const n = $("#videoNotice");
+    n.textContent = "فيديو الشقة قيد الإضافة، سيتوفر قريباً" + (propHasPhotos(currentProperty) ? "\nالمتوفر لهذه الشقة: الصور فقط" : "");
+    n.style.display = "block";
+    return;
+  }
+  const e = toEmbed(url), box = $("#videoBox"); box.innerHTML = "";
+  let el;
+  if(e.type==="iframe"){
+    el = document.createElement("iframe"); el.src = e.src; el.allow = "autoplay; fullscreen; picture-in-picture"; el.allowFullscreen = true;
+  } else {
+    el = document.createElement("video"); el.src = e.src; el.controls = true; el.autoplay = true; el.playsInline = true;
+    el.setAttribute("controlsList", "nodownload noremoteplayback"); el.disablePictureInPicture = true;
+    el.addEventListener("contextmenu", ev=>ev.preventDefault());
+  }
+  box.appendChild(el);
+  $("#videoModalTitle").textContent = titleArg || ("فيديو " + currentProperty.name);
+  $("#videoModal").classList.add("show");
+}
+function closeVideo(){ $("#videoModal").classList.remove("show"); $("#videoBox").innerHTML = ""; }
+function backToCategory(){ showPage("pageCategory"); }
+function backToHome(){ showPage("pageHome"); }
+
+function buildDrawer(){
+  const wrap = $("#drawerList"); wrap.innerHTML = "";
+  ROOM_CATS.forEach(cat=>{
+    const items = currentRooms.map((r,i)=>({...r,i})).filter(r=>r.cat===cat);
+    if(!items.length) return;
+    const h = document.createElement("div"); h.className="dr-cat"; h.textContent=cat; wrap.appendChild(h);
+    const grid = document.createElement("div"); grid.className = "drawer-grid";
+    items.forEach(r=>{
+      const btn = document.createElement("button");
+      btn.className = "dr-item"; btn.dataset.i = r.i;
+      btn.innerHTML = `<img src="${thumb(r.img)}" alt="" loading="lazy" decoding="async"><span>${r.name}</span>`;
+      btn.setAttribute("aria-label", r.name);
+      btn.addEventListener("click", ()=>{ goTo(r.i); closeDrawer(); });
+      grid.appendChild(btn);
+    });
+    wrap.appendChild(grid);
+  });
+}
+
+function renderHotspots(room){
+  const layer = $("#hotspotLayer"); layer.innerHTML = "";
+  (room.hotspots||[]).forEach(h=>{
+    const b = document.createElement("button"); b.className = "hotspot";
+    b.style.left = h.x+"%"; b.style.top = h.y+"%";
+    b.innerHTML = `<span class="hotspot-ring"></span><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4 L20 12 L12 20 M20 12 L4 12" stroke="white" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const idx = currentRooms.findIndex(r=>r.id===h.to);
+    const tip = document.createElement("span"); tip.className = "hotspot-tip"; tip.textContent = h.label; b.appendChild(tip);
+    b.addEventListener("click", ()=>goTo(idx));
+    layer.appendChild(b);
+  });
+}
+
+let goToken = 0;
+function goTo(i){
+  if(i<0) i = currentRooms.length-1;
+  if(i>=currentRooms.length) i = 0;
+  current = i;
+  const room = currentRooms[i];
+  const img = $("#stageImg"), bg = $("#stageBg");
+  const contain = !!(currentProperty && currentProperty.fit==="contain");
+  img.style.objectFit = contain ? "contain" : "cover";
+  bg.style.display = contain ? "block" : "none";
+  bg.style.opacity = 0; img.style.opacity = 0;
+  const token = ++goToken, url = dataMap[room.img];
+  setTimeout(()=>{
+    if(token !== goToken) return;
+    const show = ()=>{ if(token !== goToken) return; img.style.opacity = 1; bg.style.opacity = 1; };
+    img.onload = show; img.onerror = show;
+    img.src = url; bg.src = url;
+    if(img.complete && img.naturalWidth) show();
+    [i+1, i-1].forEach(n=>{ const r = currentRooms[(n+currentRooms.length)%currentRooms.length]; if(r && dataMap[r.img]) (new Image()).src = dataMap[r.img]; });
+  }, 180);
+  $("#roomName").textContent = room.name;
+  $("#stepCount").textContent = `الصورة ${i+1} من ${currentRooms.length}`;
+  $("#progBar").style.width = ((i+1)/currentRooms.length*100) + "%";
+  $all(".dr-item").forEach(b=>b.classList.toggle("on", +b.dataset.i===i));
+  renderHotspots(room);
+}
+
+function openDrawer(){ $("#drawer").classList.add("open"); $("#scrim2").classList.add("show"); const on=$(".dr-item.on"); if(on) setTimeout(()=>on.scrollIntoView({block:"center"}),320); }
+function closeDrawer(){ $("#drawer").classList.remove("open"); $("#scrim2").classList.remove("show"); }
+
+function init(dm){
+  dataMap = dm;
+  logoLight = "img/logo-light.png";
+  dataMap.ph = "data:image/svg+xml;utf8," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500'><rect width='800' height='500' fill='#0F2342'/></svg>");
+
+  $all("[data-logo]").forEach(i=>i.src = logoLight);
+  const logoMark = "img/logo-mark.png";
+  $all("[data-mark]").forEach(i=>i.src = logoMark);
+  $all("[data-foot]").forEach(f=>f.innerHTML = contactHTML());
+  $all("[data-foot-inline]").forEach(f=>f.innerHTML = contactHTML());
+  $all("[data-i]").forEach(el=>{ el.insertAdjacentHTML("afterbegin", ICON[el.dataset.i]); });
+  mountRidges();
+  setupSplash();
+  buildType();
+  buildHome();
+  showPage("pageSplash");
+
+  $("#goSale").addEventListener("click", ()=>showPage("pageHome"));
+  $("#goRent").addEventListener("click", ()=>showPage("pageRent"));
+  $("#backType").addEventListener("click", ()=>showPage("pageType"));
+  $("#backTypeFromRent").addEventListener("click", ()=>showPage("pageType"));
+  $("#backHome").addEventListener("click", backToHome);
+  $("#backCategory").addEventListener("click", backToCategory);
+  $("#coverBack").addEventListener("click", backToCategory);
+
+  $("#videoBtn").addEventListener("click", ()=>openVideo());
+  $("#videoBtn2").addEventListener("click", ()=>{ const x = currentProperty && currentProperty.extraVideo; if(x) openVideo(x.url, "فيديو " + (x.title || "الملحق")); });
+  $("#videoClose").addEventListener("click", closeVideo);
+  $("#startBtn").addEventListener("click", ()=>{ $("#cover").classList.add("hide"); });
+  $("#nextBtn").addEventListener("click", ()=>goTo(current+1));
+  $("#prevBtn").addEventListener("click", ()=>goTo(current-1));
+  $("#menuBtn").addEventListener("click", openDrawer);
+  $("#closeDrawer").addEventListener("click", closeDrawer);
+  $("#scrim2").addEventListener("click", closeDrawer);
+
+  let touchX = null; const stage = $("#stage");
+  stage.addEventListener("touchstart", e=>{ touchX = e.touches[0].clientX; }, {passive:true});
+  stage.addEventListener("touchend", e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx) > 50){ dx < 0 ? goTo(current+1) : goTo(current-1); }
+    touchX = null;
+  });
+  document.addEventListener("keydown", e=>{
+    if(!$("#pageProperty").classList.contains("active")) return;
+    if(e.key==="ArrowLeft") goTo(current+1);
+    if(e.key==="ArrowRight") goTo(current-1);
+    if(e.key==="Escape") closeDrawer();
+  });
+}
+
+const IMG_EXT = {"a01": "jpg", "a02": "jpg", "a03": "jpg", "a04": "jpg", "a05": "jpg", "a06": "jpg", "a07": "jpg", "n01": "jpg", "n02": "jpg", "n03": "jpg", "n04": "jpg", "n05": "jpg", "n06": "jpg", "n07": "jpg", "n08": "jpg", "n09": "jpg", "n10": "jpg", "n11": "jpg", "n12": "jpg", "n13": "jpg", "n14": "jpg", "kb01": "jpg", "kb02": "jpg", "kb03": "jpg", "kb04": "jpg", "kb05": "jpg", "kb06": "jpg", "kb07": "jpg", "kb08": "jpg", "kb09": "jpg", "kb10": "jpg", "kb11": "jpg", "kb12": "jpg", "kb13": "jpg", "jm01": "jpg", "jm02": "jpg", "jm03": "jpg", "jm04": "jpg", "jm05": "jpg", "jm06": "jpg", "jm07": "jpg", "jm08": "jpg", "jm09": "jpg", "jm10": "jpg", "jm11": "jpg", "jm12": "jpg", "jm13": "jpg", "jm14": "jpg", "jm15": "jpg", "jm16": "jpg", "jm17": "jpg", "jm18": "jpg", "jm19": "jpg", "and01": "jpg", "and02": "jpg", "and03": "jpg", "and04": "jpg", "and05": "jpg", "and06": "jpg", "and07": "jpg", "and08": "jpg", "and09": "jpg", "and10": "jpg", "and11": "jpg", "and12": "jpg", "and13": "jpg", "and14": "jpg", "and15": "jpg", "and16": "jpg", "and17": "jpg", "and18": "jpg", "ts01": "jpg", "ts02": "jpg", "ts03": "jpg", "ts04": "jpg", "ts05": "jpg", "ts06": "jpg", "ts07": "jpg", "ts08": "jpg", "ts09": "jpg", "ts10": "jpg", "ts11": "jpg", "ts12": "jpg", "ts13": "jpg", "ts14": "jpg", "kr2c": "jpg", "kr3c": "jpg", "kr4c": "jpg", "kr5c": "jpg", "ar1c": "jpg", "kh1c": "jpg", "kr12c": "jpg", "kr6c": "jpg", "by1c": "jpg", "sh1c": "jpg", "as1c": "jpg", "brcat": "jpg", "ttcat": "jpg"};
+const thumb = k => IMG_EXT[k] ? "img/t/"+k+".jpg" : dataMap[k];
+init(Object.fromEntries(Object.entries(IMG_EXT).map(([k,e])=>[k,"img/"+k+"."+e])));
+
+/* ---------- عدد الزوار النشطين (بين 156 و 268) ---------- */
+(function(){
+  const MIN = 156, MAX = 268;
+  let n = Math.floor(Math.random()*(MAX-MIN+1)) + MIN;
+  document.querySelectorAll("[data-live]").forEach(h=>{
+    h.classList.add("live");
+    h.innerHTML = '<span class="live-row"><span class="live-dot" aria-hidden="true"></span><b class="live-num">'+n+'</b></span><span class="live-lbl">زائر نشط</span>';
+  });
+  const nums = document.querySelectorAll(".live-num");
+  const show = v => { nums.forEach(e=>e.classList.add("swap")); setTimeout(()=>{ nums.forEach(e=>{ e.textContent = v; e.classList.remove("swap"); }); }, 160); };
+  function tick(){
+    let d = Math.floor(Math.random()*7) + 1;
+    if(Math.random() < 0.12) d += Math.floor(Math.random()*14);
+    n += (Math.random() < 0.5 ? -d : d);
+    if(n > MAX) n = MAX - Math.floor(Math.random()*6);
+    if(n < MIN) n = MIN + Math.floor(Math.random()*6);
+    show(n);
+    setTimeout(tick, 2500 + Math.random()*4500);
+  }
+  setTimeout(tick, 3000);
+})();
+
+</script>
+</body>
+</html>
